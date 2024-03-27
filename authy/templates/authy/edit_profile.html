@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="update-account layout">
+  <style>
+    .button {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 8px 16px;
+  background: #499ab1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:active {
+  background: #71c6dd;
+}
+
+.button__text {
+ font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: black;
+  transition: all 0.2s;
+}
+
+.button--loading .button__text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: black;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.8s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+  </style>
+  <div class="container">
+    <div style="display: flex; flex-direction: column; width: 100%;">
+      <div class="layout__boxHeader">
+        <div class="layout__boxTitle">
+          <a href="{{request.META.HTTP_REFERER}}" >
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>arrow-left</title>
+              <path
+                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+              </path>
+            </svg>
+          </a>
+          <h3>Create Your Personal or Professional Account with Us </h3>
+        
+        </div>
+      </div>
+      <div class="layout__body">
+        <form class="form" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h1 style="color: lightgreen; font-size: 20px; margin-bottom: 5px;">You can switch your Account To Professional or Private Account at any time ! </h1>
+        
+          
+        
+
+
+         
+            
+         
+          <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Profile Image</label>
+          
+            
+                   {{ form.picture }} 
+            
+          </div>
+
+          <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Cover Image</label>
+          
+            
+                   {{ form.coverpage }} 
+            
+          </div>
+
+
+
+           <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Name</label>
+           
+                   {{form.first_name}} 
+           
+          </div>
+          
+          <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Industry or Field</label>
+           
+                   {{form.field_name}} 
+           
+          </div>
+
+
+           <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Location</label>
+           
+            
+                   {{ form.location }} 
+           
+          </div>
+
+         
+           <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Website</label>
+            
+           
+                   {{ form.url }} 
+           
+          </div>
+
+          <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Phone-Number</label>
+           
+            
+                   {{ form.Phone }} 
+           
+          </div>
+
+          <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic">Email</label>
+           
+            
+                   {{ form.email }} 
+        
+          </div>
+
+           <div class="form__group">
+            <label style="margin-top: 10px; color: #71c6dd" for="room_topic"> Bio</label>
+  
+            {{ form.profile_info }} 
+        
+             
+            
+           
+           
+              
+          </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+          <div style="margin-top: 50px;" class="form__action">
+            
+            
+            
+           
+            <a class="btn btn--dark" href="{% url 'index' %}">Cancel</a>
+            <button value="login"  type="submit" class="button" onclick="this.classList.toggle('button--loading')">
+              <span class="button__text">Submit</span>
+          </button>
+           
+          </div>
+          <!-- <button class="btn btn--main" type="submit">Submit</button> -->
+          
+          
+
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+</main>
+{% endblock content %}

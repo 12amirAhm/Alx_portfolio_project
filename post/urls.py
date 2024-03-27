@@ -1,0 +1,32 @@
+from django.urls import path
+from post.views import Payblue, Paybuss, Payjob, Propost, deletePost, index, indextwo,like,tags,NewPost,favorite,Vacancy,createJob,jobs,deleteJob,updateJob,PostDetails,About,Transition,Switch, postpro,monitize,UserSearch,Terms,Privacy
+urlpatterns = [
+   	path('', index, name='index'),
+    path('indextwo/', indextwo, name='indextwo'),
+    # path('video/', video, name='video'),
+    path('create-job/',createJob, name="create-job"),
+    path('jobs/<str:pk>/',jobs, name="jobs"),
+    path('update-job/<str:pk>/',updateJob, name="update-job"),
+    path('delete-job/<str:pk>/',deleteJob, name="delete-job"),
+     path('delete-post/<str:pk>/',deletePost, name="delete-post"),
+    path('job/',Vacancy, name="vacancy"),
+   	path('newpost/', NewPost, name='newpost'),
+   	path('<uuid:post_id>', PostDetails, name='postdetails'),
+   	path('<uuid:post_id>/like', like, name='postlike'),
+   	path('<uuid:post_id>/favorite', favorite, name='postfavorite'),
+   	path('tag/<slug:tag_slug>', tags, name='tags'),
+       	path('usersearch/', UserSearch, name='userfollow'),
+     path ('our_service/',Transition, name='our_service'),
+      path ('switch/',Switch, name='switch'),
+      path ('terms/',Terms, name='terms'),
+      path ('postprice/',Propost, name='postprice'),
+      path ('payjob/',Payjob, name='payjob'),
+      path ('payblue/',Payblue, name='payblue'),
+      path ('paybuss/',Paybuss, name='paybuss'),
+      path ('privacy/',Privacy, name='privacy'),
+      path ('postpro/',postpro, name='postpro'),
+       path ('monitize/',monitize, name='monitize'),
+          #  path('<username>/', monitize, name='monitize'),
+    path ('aboutus/',About, name='aboutus'),
+   
+]

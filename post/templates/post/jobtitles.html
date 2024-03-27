@@ -1,0 +1,17 @@
+<div class="topics">
+    <div class="topics__header">
+        <h1 style="font-size: 17px; color: black; font-weight: 700;"> Recent Job Titles</h1>
+    </div>
+    <ul class="topics__list">
+        <li>
+            <a href="" class="active">Total <span style="color: black; margin-left: 3px;">{{jobtitles.count}}</span></a>
+        </li>
+        {% for jobtitle in jobtitles %}
+        <li>
+            <a href="">{{jobtitle.titlename}}<span style="color: black; margin-left: 3px;">{{jobtitle.job_set.all.count}}</span></a>
+        </li>
+        {% endfor %}
+
+    </ul>
+    
+</div>

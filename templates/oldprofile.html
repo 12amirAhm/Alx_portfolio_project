@@ -1,0 +1,634 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div style="margin-top: 10px; display: flex; flex-direction: column;">
+  <main class="layout layout--3" >
+    <style type = "text/css">  
+    
+    .buttonp {
+        background-color:white; color: black; padding: 5px; 
+       border-radius: 20px; width: 130px; 
+       align-items: center; 
+       font-weight: 600;
+    }
+    
+    .buttonp:hover {background-color: white ; color: #000;}
+    
+    .buttonp:active {
+      background-color: gray;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      color: white;
+     
+    }
+     
+    .buttonf {
+        background-color:black; color: white; padding: 5px; 
+       border-radius: 20px; width: 130px; 
+       align-items: center; 
+       font-weight: 600;
+    }
+    
+    .buttonf:hover {background-color: white ; color: #000;}
+    
+    .buttonf:active {
+      background-color: gray;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      color: white;
+    }
+     
+  
+        
+      .auto {  
+         display: block;  
+    
+ padding-bottom: 100px;  
+         width: 100%;  
+         height: 950px;  
+         overflow: auto;  
+      }
+      
+      .loader {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #333333;
+transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader--hidden {
+opacity: 0;
+visibility: hidden;
+}
+
+.loader::after {
+content: "";
+width: 75px;
+height: 75px;
+border: 15px solid #dddddd;
+border-top-color: #71c6dd;
+border-radius: 50%;
+animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+from {
+  transform: rotate(0turn);
+}
+to {
+  transform: rotate(1turn);
+}
+}
+
+
+
+
+.container2 {
+  position: relative;
+  
+  margin: auto;
+  }
+
+  .logo {
+    position: absolute;
+    border-radius: 50px;
+    bottom: -30px;
+    
+    left: 15px;
+   
+   
+    background-size: 95%;
+    background-repeat: no-repeat;
+    background-position: center;
+ 
+  }
+  @media (min-width: 897px) {
+          .mobile {
+            display: none;
+           
+          }
+        } 
+
+
+   </style>  
+    <script>
+      window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+  
+    loader.classList.add("loader--hidden");
+  
+    loader.addEventListener("transitionend", () => {
+      document.body.removeChild(loader);
+    });
+  });
+    </script>
+    <div class="container">
+      <div class="topics">
+
+
+        {% include 'authy/peptofollow.html' %} 
+       
+      </div>
+
+     
+  
+       
+        <div class="roomList">
+          <div class="loader" style="display: flex; flex-direction: column;">
+            <h1 style="font-size: 26px; display: flex;">Slow Connection ...</h1>
+            
+          </div>
+
+
+          <div class="container2">
+            
+            <div class="cover-photo">
+              {% if profile.coverpage %}
+              <div>
+                <img style="width: 100%; height: 100%; border-radius: 20px; " src="{{profile.coverpage.url}}" />
+              </div>
+              {% else %}
+            <div style="background-color: rgb(0, 157, 255); height: 150px; border-radius: 20px;">
+            
+          
+            </div>
+            {% endif %} 
+           
+
+
+
+            </div>
+          
+            
+            <div class="logo">
+
+              {% if profile.picture %}
+              {% if profile.Are_You_Business %}
+              <div>
+                <img style="width: 100px; height: 100px; border-radius: 10px; " src="{{profile.picture.url}}" />
+              </div>
+              {% else %}
+              <div>
+                <img style="width: 100px; height: 100px; border-radius: 50px; " src="{{profile.picture.url}}" />
+              </div>
+              {% endif %}
+
+              {% else %}
+                <img style="width: 100px; height: 100px; border-radius: 50px;" src="{% static '\images\default_profile.png' %}" />
+              {% endif %}
+
+             
+            </div>
+            {% if profile.Are_You_Business %}
+            <div style="margin-right: 3px; color: rgb(0, 157, 255); float: right;">
+ 
+              <i class="fa-solid fa-business-time"></i>
+              <span style="font-size: 12px;">Business Account</span>
+            </div>
+            {% else %}
+            <div style="margin-right: 3px; color: rgb(0, 157, 255); float:right;">
+             
+              <i class="fa-solid fa-user-tie"></i>
+              <span style="font-size: 12px;">Personal Account</span>
+            </div>
+            {% endif %} 
+
+           
+            
+          </div>
+
+
+
+
+
+
+
+
+          <div style="display: flex; flex-direction: column; margin-top: 50px;">
+
+
+           
+
+          
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0px;" class="profile__avatar">
+              <div style="margin-left: 5px;" class="profile__info">
+              
+  
+  
+  
+             
+             <div style="display: flex; flex-direction: column; align-items: start;">
+              {% if profile.first_name %}
+              <h3 style="font-weight: 600; font-size: 15px; color: black;">{{profile.first_name}}</h3>
+              
+               
+               
+  
+              
+              {% else %}
+                <p></p>
+              {% endif %}
+
+
+
+              
+
+
+
+              <p style="font-size: 12px; color: black;">@{{profile.user.username}}</p>
+
+             
+
+             </div>     
+            
+            
+          
+            
+            
+           
+      
+  
+              </div>
+
+              <div  style="margin-right: 5px; display: flex; align-items: center;">
+                
+               
+                 
+              {% if user.is_authenticated and user != profile.user %}
+                   <div class="media-right">
+                  {% if follow_status == True %}
+                  <a style="color: black; 
+                  border-radius: 15px; 
+                  font-size: 25px; 
+                  margin-right: 10px; 
+                  " 
+                  href="{% url 'newconversation' user.username %}">
+                <i class="fa-solid fa-envelope"></i>
+                 </a>
+                 <a 
+                href="{% url 'follow' profile.user 0 %}" class="buttonp" >Following
+                 </a>
+                    {% else %}
+                  <a 
+                href="{% url 'follow' profile.user 1 %}"  class="buttonf" >Follow
+                </a>
+                  {% endif  %}
+
+
+
+                <div>
+            </div>
+                </div>
+              {% endif %}
+                {% if user.is_authenticated and user == profile.user %}
+                <a href="{% url 'update-user' %}" class="buttonp" >Edit profile</a>
+                {% else %}
+                <p></p>
+                {% endif %}
+
+
+
+
+              </div>
+  
+             
+            </div>
+
+
+          </div>
+
+          <div style="margin-right: 0px; font-size: 20px; display: flex; margin-top: 10px;" class="level-item has-text-centered">
+            <p style="color: black; ; margin-right: 7px; font-weight: 500;" class="title"> <span style="color: black;"> {{ followers_count }}</span>  Followers</p>
+            {% if user.is_authenticated and user == profile.user %}
+          <p style="color: black; ; margin-left: 20px; margin-right: 7px; font-weight: 500;" class="title"> <span style="color: black;"> {{ following_count }} </span> Following</p>
+           {% endif %}
+          </div>
+
+          
+<div style="display: flex;">
+  <div style="display: flex; align-items: center; color: black; flex-direction: row; margin-right: 8px;">
+    {% if profile.location %}
+    <div style="margin-right: 3px;">
+      <i class="fa-solid fa-location-dot"></i>
+
+      
+    </div>
+ 
+    <div style="color: #000;"> {{profile.location}}</div>
+    {% else %}
+<p>
+
+</p>
+    {% endif %}
+
+   
+  
+</div>
+<div style="display: flex; align-items: center; color: black; flex-direction: row; ">
+{% if profile.field_name %}
+{% if profile.Are_You_Business %}
+
+<div style="margin-right: 3px;">
+ 
+  <i class="fa-solid fa-business-time"></i>
+</div>
+{% else %}
+<div style="margin-right: 3px;">
+ 
+  <i class="fa-solid fa-user-tie"></i>
+</div>
+{% endif %}
+
+<div style="color: #000;"> {{profile.field_name}}</div>
+{% else %}
+<p>
+
+</p>
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+   
+
+
+
+
+
+
+
+            <div class="profile__about">
+              {% if profile.profile_info %}
+  
+              <span style="color: black; font-weight: 600;">Bio</span>
+              <p style="color: black;">
+                {{ profile.profile_info }}
+              </p>
+  
+  
+              {% else %}
+  
+             <p>
+
+             </p>
+  
+              {% endif %}
+  
+             
+      
+          
+          </div>
+          <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; margin-right: 12px; ">
+        <div>
+          <i style="margin-right: 3px; color: black;" class="fa-solid fa-calendar-days"></i>
+        </div>
+            
+              <div style="color: black; font-size: 12px;">Joined on {{profile.created}}</div>
+             
+            </div>
+
+            <div style="display: flex; align-items: center; color: black; ">
+              {% if profile.Phone %}
+             <div> <i style="margin-right: 3px;" class="fa-solid fa-phone"></i> </div> 
+              <div > {{profile.Phone}}</div>  
+              {% else %}
+          <p>
+
+          </p>
+              {% endif %}
+  
+             
+            
+        </div>
+
+
+          </div>
+          <div style="display: flex;  align-items: start; ">
+       
+           
+           
+            <div style="display: flex; align-items: center; color: black; margin-right: 8px; ">
+              {% if profile.email %}
+            <div>
+              <i style="margin-right: 3px; color: black;" class="fa-solid fa-envelope"></i>
+            </div>
+             <div>
+              {{profile.email}}
+             </div>
+              
+
+              {% else %}
+          <p>
+            
+          </p>
+              {% endif %}
+             
+        </div>
+
+
+            <div style="display: flex; align-items: center; color: black;">
+              {% if profile.url %}
+            <div>
+              <i style="margin-right: 3px; color: black;" class="fa-solid fa-link"></i>
+
+            </div>
+             
+            <div>
+              <a href="" style="cursor: pointer; color: black;"> {{profile.url}}</a>
+            </div>
+             
+
+              {% else %}
+          <p>
+            
+          </p>
+              {% endif %}
+              
+            
+
+            </div>
+            
+
+
+          </div>
+         
+           
+         
+          
+          
+                
+            
+             
+              <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                <span style="margin-right: 55px; font-size: 20px; font-weight: 600; color: black; " class="{% if url_name == 'profile' %}is-active{% endif %}">
+                  <a style="color: #000;" href="{% url 'profile' profile.user %}">Posts</a>
+                  <span style="color: black;" class="title">{{ posts_count }}</span>
+                </span>
+                
+                {% if user.is_authenticated and user == profile.user %}
+                
+                <span style="font-size: 20px; font-weight: 600; margin-left: 55px; color: black; display: flex; align-items: center;" class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
+                  <a style="margin-right: 5px; color: black;" href="{% url 'profilefavorites' profile.user %}">Saved</a>
+                  <i  href="{% url 'profilefavorites' profile.user %}" style="color: black; margin-right: 5px; font-size: 30px; cursor: pointer;" class="fa-solid fa-download"></i>
+                </span>
+              
+              {% endif %}
+                
+              </div>
+            
+            
+            
+            
+              {% if user.is_authenticated and user == profile.user %}
+              <a   href="" 
+              style="font-size: 14px; font-weight: none; color: black; margin-bottom: 5px; font-weight: 600;"
+            > All Your Post below will be Public for your followers
+          </a>
+           
+            
+            {% endif %}
+            <main>
+
+              <div class="container">
+                
+                <div class="gallery">
+                      
+                      {% for post in posts %}
+                      <a  style="cursor: pointer;" href="{{post.content.get_absolute_url}}">
+                        <div class="gallery-item" tabindex="0">
+                          {% if post.content.first.file %} 
+                          <div 
+                          style="font-size: 18px; font-weight: none; color: black; margin-bottom: 5px;"
+                        > {{ post.caption }}
+                        </div>
+                          <video loop muted autoplay ="autoplay" style="width: 80%; height: 80%; border-radius: 20px;" controls="controls" preload="metadata">
+                            <source src="{{ post.content.first.file.url }}#t=0.5" type="video/mp4">      
+                           
+                          </video>
+                        {% else %}
+                          <div
+                          style="font-size: 20px; font-weight: none; color: black; margin-bottom: 5px; margin-top: 15px; font-weight: 600;"
+                        > {{ post.caption }}
+                        </div>
+                        {% endif %}
+                      {% if post.postpic %} 
+                        <div>
+                          <img style="border-radius: 20px;" src="{{post.postpic.url }}" />
+                        </div>
+                      {% else %}
+                        <div class="topics">
+                        </div>
+                        {% endif %}
+                          <div class="gallery-item-info">
+                               <ul>
+                                  <li style="color: rgb(0, 157, 255);" 
+                                  class="gallery-item-likes"><span 
+                                  class="visually-hidden">Likes:</span>
+                                  <i class="fa-solid fa-thumbs-up"></i>
+                                   {{post.likes}}</li>
+                              </ul>
+                          </div>
+                        </div>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+          </main>
+        </div>
+             
+           
+        
+            
+            
+            
+            
+  
+             
+      
+
+              <div class="topics">
+                <div style="display: flex;" >
+                  <footer  style="background-color: rgb(0, 157, 255) ; margin-top: 20px; width: 70%; height: 300px; border-radius: 10px;"  >
+                    <div  style="display: flex; flex-direction: column; padding: 10px;">
+                        <div style="background-color: rgb(0, 157, 255)" class="container">
+                            <div style="display: flex; margin-bottom: 10px;">
+                                <img style="height: 35px; width: 35px;  flex-direction: row; margin-right: 10px; border-radius: 50px; " src="{% static 'images/elogo.jpg' %}" />
+                                
+                            <h1 style="font-size: 25px; color: black ; 
+                            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600;"> 
+                             </h1>
+                
+                            </div>
+                            
+                           
+                            <div style="display: flex; flex-direction: column; margin-top: 50px; margin-bottom: 20px; align-items: start; justify-content: space-between;"  >
+                         
+                             
+                               
+                                <a style="font-size: 15px; color: black; margin-bottom: 15px; " href="{% url 'switch' %}">
+                                 
+                                  <i style="font-size: 20px;" class="fa-solid fa-business-time"></i>
+                                  Switch Account
+                                </a>
+                                
+                                <a style="font-size: 15px; color: black; margin-bottom: 15px;" href="{% url 'postpro' %}">
+                                 
+                                  <i style="font-size: 20px;" class="fa-sharp fa-solid fa-signs-post"></i>
+                                  Post Job</a>
+                                <a style="font-size: 15px; color: black; " href="{% url 'monitize' %}">
+                                 
+                                  <i style="font-size: 20px;"class="fa-solid fa-comments-dollar"></i>
+                                  Monitization
+                                
+                                </a> 
+                            </div>
+                           
+                            
+                            <div class="footer-col">
+                                
+                            </div>
+                        </div>
+                     
+                    </div>
+                </footer>
+                  
+                </div> 
+                 
+                
+                 
+                  
+            
+                
+                
+            
+              
+                  
+                   
+                    
+                  
+            
+            
+          
+          
+          
+             </div>
+        
+       
+      </div>
+          
+  
+   
+    
+</div>
+</main>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<head>
+</head>
+<body>
+
+
+  <div style="align-items: center;" class="container-fluid">
+    <div class="container p-5">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4">
+
+        </div>
+        
+        <div style="margin-top: 50px; align-items: center;" class="col-lg-4 col-md-12 mb-4">
+          <div class="card card2 h-100">
+            <div class="card-body">
+             
+              <h4 style="font-weight: 700; margin: 10px;"> ETnets Job Promoter
+                <i style="font-size: 25px; color: black"  class="fa-solid fa-user-tie fa-beat"></i>
+              </h4>
+              <small class='text-muted'>For All Kind of Business</small>
+              <br><br>
+              <span style="font-weight: 600;" class="h2">$25</span><span style="color: rgb(0, 157, 255); font-weight: 600;">One Time Payment</span> //
+              <br>
+              <span style="font-size: 16px;" class="h2">1375Birr</span><span style="color: rgb(0, 157, 255); font-weight: 600;">የአንድ ጊዜ ክፍያ</span>
+              <br><br>
+              <li style="font-weight: 600;">15 days Money back guarantee</li>
+              <a href="{% url 'payjob' %}">
+                <div class="d-grid my-3">
+                  <button class="btn btn-outline-dark btn-block">Pay // ክፈል</button>
+                </div>
+              </a>
+             
+              <span style="font-size: 16px;">After the transaction You can Unlock these things</span>
+              <ul>
+                
+                <li>Unlimited Job post</li>
+                <li>Getting specific Applicant who wants to Apply</li>
+                <li>Full access on jobseekers professional profile</li>
+                <li>Weekley email notifications about job applicant</li>
+                
+              </ul>
+            </div>
+
+            
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4">
+        
+        </div>
+      </div>    
+    </div>
+  </body>
+
+
+
+
+
+
+{% endblock %}

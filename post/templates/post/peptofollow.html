@@ -1,0 +1,173 @@
+{% load static %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+  
+</script>
+
+<style>
+    .button {
+        background-color: black; color: white; padding: 5px; 
+       border-radius: 10px; width: 90px; 
+       align-items: center; padding-left: 20px;
+       font-weight: 600;
+    }
+    
+    .button:hover {background-color: lightgray ; color: #000;}
+    
+    .button:active {
+      background-color: gray;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      color: white;
+    }
+
+    .scroll-hide{
+  max-height: 400px;
+  margin-top: 20px;
+  max-width: 100%;
+
+  padding-left: 16px;
+  overflow: auto;
+  /* this will hide the scrollbar in mozilla based browsers */
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+
+.scroll-hide::-webkit-scrollbar { 
+  width: 0 !important;
+  display: none; 
+}
+
+
+
+
+    </style>
+
+
+
+
+
+
+ 
+
+<div style="width: 700px; float: left; background-color: white;" class="scroll-hide">
+  {% for user in all_users %} 
+   {% if request.user.username != user.username  %}
+   <div style="margin-top: 15px; width: 100%;" >
+    <div style="display: flex; align-items: center;">
+      {% if user.profile.picture %}
+    {% if user.profile.golden_checker %} 
+    <a href="{% url 'profile' user %}" >
+        <img style="width: 80px; height: 80px; border-radius: 5px; " src="{{user.profile.picture.url}}" alt="User Picture">
+    </a>
+    {% else %}
+    <a href="{% url 'profile' user %}" >
+      <img style="width: 80px; height: 80px; border-radius: 50px; " src="{{user.profile.picture.url}}" alt="User Picture">
+  </a>
+  {% endif %}
+    {% else %}
+           <img style="width: 80px; height: 80px; border-radius: 50px; " src="{% static '\images\default_profile.png' %}" />
+    {% endif %}
+
+    {% if user.profile.field_name %}
+    <div >
+      <a style="color: rgb(0, 157, 255); font-weight: 200; margin-left: 3px; font-size: 15px;" >{{user.profile.field_name}}</a>
+    </div>
+    {% else %}
+    <p> </p>
+    {% endif %}
+
+    </div>
+    
+       
+       
+       <div  style="display: flex; align-items: center; justify-content: space-between;" class="side-menu__suggestion-info">
+        <div>
+            {% if user.profile.first_name %}
+           <div style="display: flex; flex-direction: column; color: #000;" >
+            <div style="display: flex; align-items: center;">
+              <span style="color: #000; font-weight: 600; margin-right: 2px;" href="{% url 'profile' user %}">{{user.profile.first_name|title}} </span>
+
+              <div>
+                {% if user.profile.blue_checker %}
+                <i style="font-size: 20px; color: rgb(0, 157, 255);" class="bi bi-patch-check-fill "></i> 
+                {% else %}
+                <p> </p>
+                {% endif %}
+             </div>
+           <div>
+            {% if user.profile.golden_checker %} 
+            <i style="font-size: 20px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+            {% else %}
+            <p> </p>
+            {% endif %}
+
+            </div>
+            <div>
+              {% if user.profile.job_checker %} 
+              <i style="font-size: 20px; color: black;" class="fa-solid fa-user-tie "></i>
+              {% else %}
+              <p> </p>
+              {% endif %}
+  
+              </div>
+            </div>
+           
+            <a style="color: #000; font-size: 12px;" href="{% url 'profile' user %}">@{{user.username}}</a>
+           
+           </div>
+           
+           {% else %}
+         <p> <a style="color: #000; font-size: 12px;" href="{% url 'profile' user %}">@{{user.username}}</a></p>
+           {% endif %}
+           <p></p>
+
+
+
+        </div>
+           
+
+
+
+           
+
+
+       </div>
+       <div >
+        {% if user.follow_status %}
+        <a style="background-color: black; color: white; padding: 5px; 
+        border-radius: 20px; width: 130px; 
+        align-items: center; padding-left: 40px;"
+ 
+         href="{% url 'follow' user 0 %}" class="side-menu__suggestion-button">Following</a>
+        {% else %}
+        <a 
+         href="{% url 'follow' user 1 %}" style=" font-size: 14px; background-color: rgb(0, 157, 255)" class="btn " >Follow</a>
+        {% endif %} 
+        <div style="margin-bottom: 7px;">
+          <hr class="divider">
+        </div>                       
+      </div>
+     
+      
+       
+
+     
+                 
+   </div>
+   {% endif %}
+   {% endfor %}
+   
+
+
+</div>
+
+
+
+   
+
+
+
+
+

@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{% load social_share %}
+<main class="layout layout--3  ">
+  <script>
+    window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader");
+
+  loader.classList.add("loader--hidden");
+
+  loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+  </script>
+  <style type = "text/css">  
+  
+        
+    .auto {  
+       display: block;  
+  
+padding-bottom: 100px;  
+       width: 100%;  
+       height: 950px;  
+       overflow: auto;  
+    }
+    
+
+    .auto2 {  
+       display: block;  
+  
+padding-bottom: 100px;  
+       width: 100%;  
+       height: 550px;  
+       overflow: auto;  
+    }
+
+    .auto {  
+           display: block;  
+           padding-bottom: 100px;  
+           width: 100%;  
+           height: 100%px;  
+           overflow: auto;  
+        } 
+    
+    .loader {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #333333;
+transition: opacity 0.75s, visibility 0.75s;
+}
+
+.scrool{
+  max-height: 100%;
+  margin-top: 0px;
+  max-width: 100%;
+
+  padding-bottom: 100px;  
+  border-radius: 10px;
+  padding-left: 0px;
+  padding-right: 12px;
+  overflow: auto;
+  /* this will hide the scrollbar in mozilla based browsers */
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+
+
+.loader--hidden {
+opacity: 0;
+visibility: hidden;
+}
+
+.loader::after {
+content: "";
+width: 75px;
+height: 75px;
+border: 15px solid #dddddd;
+border-top-color: #71c6dd;
+border-radius: 50%;
+animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+from {
+transform: rotate(0turn);
+}
+to {
+transform: rotate(1turn);
+}
+}
+ </style> 
+
+
+
+  
+    <div class="container">
+        <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="components-alerts.html">
+              <i class="bi bi-circle"></i><span>Alerts</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-accordion.html">
+              <i class="bi bi-circle"></i><span>Accordion</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Components Nav -->
+
+      
+
+
+      <li class="nav-heading">Pages</li>
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'aboutus' %}">
+          <i class="bi bi-envelope"></i>
+          <span>About Us</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'our_service' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Our Service</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'terms' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Term and Conditions</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'privacy' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Privacy Policy</span>
+        </a>
+      </li>
+      <!-- End Contact Page Nav -->
+
+     
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <div style="margin-bottom: 10px;" class="col-xxl-4 col-md-6">
+                
+        <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
+          <li class="nav-item" role="presentation">
+            <a href="{% url 'index' %}" >
+              <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" 
+              type="button" role="tab" aria-selected="true">
+              Home 
+            </button>
+            </a>
+           
+          </li>
+          <li class="nav-item" role="presentation">
+            <a href="{% url 'indextwo' %}">
+                <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Business</button>
+            </a>
+          
+          </li>
+         
+      </ul>
+      </div>
+      <div>
+        <h2>Official Business Accounts</h2>
+        <p>Here You can find quality business products and services as you need. And you can signup your business here</p>
+        <button type="button" class="btn btn-outline-secondary">Signup for ETnets Official</button>
+    </div>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          {% if post_item %} 
+          <div  class="auto">
+            {% for post_item in post_items %}
+                
+                {% if post_item.user.profile.golden_checker %} 
+              <div style="width: 22rem;" class="card" >
+                {% if post_item.content.first.file %} 
+                <video loop muted autoplay ="autoplay" style="width: 100%; height: 100%; " controls="controls" preload="metadata">
+                  <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">      
+                 </video>
+                 <a href="{% url 'postdetails' post_item.id %}" 
+                style="font-size: 12px; font-weight: 700; margin: 5px; color: black;"
+                href=""> {{ post_item.caption }}</a>
+                 {% else %}
+                <p>
+                  <a href="{% url 'postdetails' post_item.id %}" 
+                  style="font-size: 12px; font-weight: 700; margin: 5px; color: black;"
+                  href=""> {{ post_item.caption }}</a>
+                  </p>
+                {% endif %}
+              {% if post_item.postpic %}
+              <img  src="{{post_item.postpic.url }}" />
+              {% else %}
+               <p></p>
+              {% endif %}
+
+              <div class="card-body">
+                <div style="display: flex; flex-direction: row; ">
+                  <a href="{% url 'profile' post_item.user %}" class="roomListRoom__author">
+                    {% if post_item.user.profile.picture %} 
+                    <div >
+                        <img style="width: 40px; height: 40px; border-radius: 50px;" src="{{ post_item.user.profile.picture.url }}" />
+                    </div>
+                    {% else %}
+                  <img style="width: 40px; height: 40px; " src="{% static '\images\default_profile.png' %}" />
+                    {% endif %}
+                    <span class="topics">@{{post_item.user.username}}</span>
+                </a>
+                <div>
+                {% if post_item.user.profile.golden_checker %} 
+                <i style="font-size: 30px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+                {% else %}
+                <p> </p>
+                {% endif %}
+
+                </div>
+                
+
+                <div style="display: flex; flex-direction: column;">
+                  <p>{% for tag in post_item.tags.all %}<a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>{% endfor %}</p>
+                </div>
+                <span style="margin: 10px; color: black; font-size: 10px;"> {{ post_item.posted | naturaltime }}</span>
+            
+
+                </div>
+              <span style="color: black; font-size: 20px;" >{{ post_item.likes }} <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">likes</a></span>
+              <a href="{% url 'postlike' post_item.id %}">
+                <button  type="button" class="btn btn-outline-success">Like</button>
+              </a>
+              
+              <button type="button" class="btn btn-outline-secondary">Comment</button>
+              </div>
+              </div>
+              {% else %}
+            <p> </p>
+            {% endif %}
+            {% endfor %}
+            </div>
+            {% else %}
+            {% include 'post/morepep.html' %} 
+          {% endif %}
+           
+       
+
+
+
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+          <div style="align-items: center; color: black; justify-content: space-between; margin-bottom: 5px; margin-left: 13px;">
+      
+            <i style="font-size: 27px; margin-right: 3px;" class="fa-solid fa-user-plus"></i>
+            
+            <span style="margin-bottom: 20px; font-size: 17px; font-weight: 600; ">Who to Follow</span>
+        </div>
+          <!-- Recent Activity -->
+          <div class="card">
+            
+            {% include 'post/peptofollow.html' %} 
+            
+            
+          </div><!-- End Recent Activity -->
+
+         
+
+
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+  
+
+</div>
+
+
+
+
+
+
+ 
+ 
+</main>
+
+  
+
+
+
+
+{% endblock %}

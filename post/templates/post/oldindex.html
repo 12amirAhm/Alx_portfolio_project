@@ -1,0 +1,488 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{% load social_share %}
+<main class="layout layout--3  ">
+  <script>
+    window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader");
+
+  loader.classList.add("loader--hidden");
+
+  loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+  </script>
+  <style type = "text/css">  
+  
+        
+    .auto {  
+       display: block;  
+  
+padding-bottom: 100px;  
+       width: 100%;  
+       height: 950px;  
+       overflow: auto;  
+    }
+    
+
+    .auto2 {  
+       display: block;  
+  
+padding-bottom: 100px;  
+       width: 100%;  
+       height: 550px;  
+       overflow: auto;  
+    }
+
+    .auto {  
+           display: block;  
+           padding-bottom: 100px;  
+           width: 100%;  
+           height: 100%px;  
+           overflow: auto;  
+        } 
+    
+    .loader {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #333333;
+transition: opacity 0.75s, visibility 0.75s;
+}
+
+.scrool{
+  max-height: 100%;
+  margin-top: 0px;
+  max-width: 100%;
+
+  padding-bottom: 100px;  
+  border-radius: 10px;
+  padding-left: 0px;
+  padding-right: 12px;
+  overflow: auto;
+  /* this will hide the scrollbar in mozilla based browsers */
+  overflow: -moz-scrollbars-none;
+  /* this will hide the scrollbar in internet explorers */
+  -ms-overflow-style: none;
+}
+
+
+.loader--hidden {
+opacity: 0;
+visibility: hidden;
+}
+
+.loader::after {
+content: "";
+width: 75px;
+height: 75px;
+border: 15px solid #dddddd;
+border-top-color: #71c6dd;
+border-radius: 50%;
+animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+from {
+transform: rotate(0turn);
+}
+to {
+transform: rotate(1turn);
+}
+}
+ </style> 
+
+
+
+  
+    <div class="container">
+      
+      <div class="topics">
+        <div style="align-items: center; color: black; justify-content: space-between; margin-bottom: 5px; margin-left: 13px;">
+      
+          <i style="font-size: 27px; margin-right: 3px;" class="fa-solid fa-user-plus"></i>
+          
+          <span style="margin-bottom: 20px; font-size: 17px; font-weight: 600; ">Who to Follow</span>
+      </div>
+      
+      {% include 'post/peptofollow.html' %} 
+      
+      
+       
+        
+      </div>
+
+     
+      
+      <div style="width: 100%; left: 20px;" class="roomList">
+        
+        <div href="{% url 'newpost' %}" style="margin-bottom: 10px;;">
+        
+          <form  action="{% url 'vacancy' %}" method="GET" class="header__search">
+            <label  href="{% url 'newpost' %}" style="background-color: white; border-radius: 20px;">
+              
+              <div href="{% url 'newpost' %}" style="color: black; font-size: 17px; font-weight: 550;" > 
+                Hello
+                {% if request.user.profile.first_name %} 
+                              
+                          <span style="color: rgb(0, 157, 255); font-size: 22px;">
+                            {{user.profile.first_name}}
+                          </span>
+      
+                           {% else %}
+                          
+                           <p>
+                          
+                           </p>
+                       
+                          
+                          {% endif %}
+                
+                What's on Your Mind Today ?</div>  
+              <a href="{% url 'newpost' %}" style="margin-left: 40px; font-size: 45px; color: rgb(0, 157, 255);" type="submit"   >
+           
+                <i class="fa-solid fa-feather"></i>
+              </a>
+              <a href="{% url 'newpost' %}"  style="font-size: 20px; font-weight: 550; color: rgb(0, 157, 255);"> Add Post</a>
+            </label>
+          </form>
+         
+        </div>
+
+
+      
+
+        <!-- <div class="mobile-menu" href="{% url 'newpost' %}" style="margin-bottom: 10px;">
+        
+          <form  action="" method="GET" class="header__search">
+            <label  href="{% url 'userfollow' %}" style="background-color: rgb(248, 248, 248); border-radius: 50px;">
+              
+              <a href="{% url 'userfollow' %}" style="color: black; font-size: 13px; " > 
+              Find Someone to Follow  
+              </a>  
+              </a>
+              <a href="{% url 'userfollow' %}" style="margin-left: 40px; font-size: 30px;" type="submit"   >
+           
+                <i 
+                style="font-size: 20px; color:  rgb(0, 157, 255) ;"
+    
+                class="fa-solid fa-magnifying-glass"></i>
+              </a>
+             
+            </label>
+          </form>
+         
+        </div> -->
+
+
+        <div style="width: 100%; left: 20px;" class="roomList">
+  
+          <div class="mobile-menu" href="{% url 'newpost' %}" style="margin-bottom: 10px;">
+          
+            <form  action="{% url 'vacancy' %}" method="GET" class="header__search">
+              <label  href="{% url 'newpost' %}" style="background-color: white; border-radius: 20px;">
+                
+                <div href="{% url 'newpost' %}" style="color: black; font-size: 17px; font-weight: 550;" > 
+                  Hello
+                  {% if request.user.profile.first_name %} 
+                                
+                            <span style="color: rgb(0, 157, 255); font-size: 22px;">
+                              {{user.profile.first_name}}
+                            </span>
+        
+                             {% else %}
+                            
+                             <p>
+                            
+                             </p>
+                         
+                            
+                            {% endif %}
+                  
+                  What's on Your Mind Today ?</div>  
+                <a href="{% url 'newpost' %}" style="margin-left: 40px; font-size: 45px; color: rgb(0, 157, 255);" type="submit"   >
+             
+                  <i class="fa-solid fa-feather"></i>
+                </a>
+                <a href="{% url 'newpost' %}"  style="font-size: 20px; font-weight: 550; color: rgb(0, 157, 255);"> Add Post</a>
+              </label>
+            </form>
+           
+          </div>
+  
+
+     </div>   
+   
+  
+  
+  
+  <div class="auto"  class="topics" >
+  
+    {% for post_item in post_items %}
+  
+  
+  
+    <div style="background-color: red;" class="roomListRoom">
+      <div class="roomListRoom__header">
+        <a href="{% url 'profile' post_item.user %}" class="roomListRoom__author">
+            {% if post_item.user.profile.picture %} 
+            <div class="avatar avatar--medium active">
+                <img src="{{ post_item.user.profile.picture.url }}" />
+            </div>        
+            
+  
+             {% else %}
+            
+             <img style="width: 40px; height: 40px; " src="{% static '\images\default_profile.png' %}" />
+         
+            
+            {% endif %}
+            
+            <span class="topics">@{{post_item.user.username}}</span>
+        </a>
+       
+        <br>
+       <div style="display: flex; flex-direction: column;">
+        <p>{% for tag in post_item.tags.all %}<a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>{% endfor %}</p>
+       </div>
+       
+        <br>
+        <span style="margin: 10px; color: black; font-size: 10px;"> {{ post_item.posted | naturaltime }}</span>
+        
+    </div>
+  
+  
+    <div class="roomListRoom__content">
+        
+      {% if post_item.content.first.file %} 
+      <a href="{% url 'postdetails' post_item.id %}" 
+      style="font-size: 15px; font-weight: none; color: black;"
+      href=""> {{ post_item.caption }}</a>
+      
+      <video loop muted autoplay ="autoplay" style="width: 100%; height: 100%; border-radius: 20px;" controls="controls" preload="metadata">
+        <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">      
+       
+      </video>
+  
+  
+      
+     
+    
+         
+  
+      {% else %}
+      <p>
+        <a href="{% url 'postdetails' post_item.id %}" 
+        style="font-size: 15px; font-weight: none; color: black;"
+        href=""> {{ post_item.caption }}</a>
+        
+      </p>
+      
+     {% endif %}
+     
+  
+     {% if post_item.postpic %} 
+    
+    
+     <img style="border-radius: 20px;" src="{{post_item.postpic.url }}" />
+                        
+                        
+        
+  
+     {% else %}
+     <p>
+       
+       
+     </p>
+     
+    {% endif %}
+  
+   
+  
+  
+  
+  
+         
+  
+  
+  
+  
+  
+  
+    
+      
+   
+  
+   
+      <div style="margin-top: 30px; align-items: center; display: flex; align-items: center;">
+  
+        <a href="{% url 'postlike' post_item.id %}">
+       
+          <i style="font-size: 20px; color: black; margin-right: 90px; margin-left: 20px; cursor: pointer;"  class="fa-solid fa-thumbs-up"></i>
+      </a>
+      <a href="{% url 'postdetails' post_item.id %}">
+        <i style="font-size: 20px; color: black; margin-right: 90px; cursor: pointer;" class="fa-regular fa-comment"></i>
+       
+      </a>
+  
+      <a href="{% url 'postdetails' post_item.id %}">
+        <i style="font-size: 20px; color: black; cursor: pointer;" class="fa-solid fa-share"> 
+          
+        </i>
+       
+      </a>
+   
+      </div>
+     
+  
+  
+  <div style="display: flex; align-items: center; margin-left: 13px; margin-bottom: 10px;">
+    <span style="color: black; font-size: 20px;" >{{ post_item.likes }} <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">likes</a></span>
+      
+      <span style="margin-left: 60px; margin-top: 5px;  color: black;"> <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">Comment</a> <a href="#"></a></span>
+  
+
+  </div>
+      
+  
+      
+  
+  
+  
+  
+    </div>
+   
+  
+  
+  
+  
+  
+  
+  
+   
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <br>
+  
+  {% endfor %}
+
+  
+  {% include 'post/morepep.html' %} 
+  
+  </div>
+  
+  </div>
+    
+      <div class="topics" style="display: flex; flex-direction: column; float: right; margin-left: 20px; width: 100px;" >
+        
+          <form class="topics" style="margin-bottom: 50px; border-radius: 20px; width: 100%;"  action="{% url 'vacancy' %}" method="GET" class="header__search">
+            <label href="{% url 'userfollow' %}"  style="background-color: white ; margin-bottom: 10px; border-radius: 50px; width: 100%; height: 50px;">
+            
+                <a style="margin-left: 40px; margin-bottom: 60px;" href="{% url 'userfollow' %}">
+                  Search 
+                </a>
+          
+             
+              <a href="{% url 'userfollow' %}" style="margin-left: 25px; font-size: 35px;" type="submit"   >
+                <i 
+                style="font-size: 30px; color:  #71c6dd; ;"
+    
+                class="fa-solid fa-magnifying-glass"></i>
+                
+               
+              </a>
+              
+              
+             
+            </label>
+          </form>
+        
+        
+  
+  
+        <div style="display: flex; flex-direction: column;" >
+          
+  
+          <footer  class="topics"  style="background-color: rgb(172, 172, 172); margin-top: 0px; width: 100%; border-radius: 10px;"  >
+            <div  style="display: flex; flex-direction: column; padding: 10px;">
+                <div style="background-color:  rgb(172, 172, 172) ;" class="container">
+                    <div style="display: flex;">
+                        <img style="height: 35px; width: 35px;  flex-direction: row; margin-right: 10px; border-radius: 50px; " src="{% static 'images/elogo.jpg' %}" />
+                        
+                    <h1 style="font-size: 25px; color: rgb(0, 157, 255) ; 
+                    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600;"> ETnets
+                     </h1>
+        
+                    </div>
+                    
+                   
+                    <div style="display: flex; flex-direction: column; margin-top: 20px; margin-bottom: 20px;" class="container" >
+                 
+                     
+                       
+                        <a style="font-size: 15px; color: black; " href="{% url 'our_service' %}">Our Service</a>
+                        <a style="font-size: 15px; color: black;" href="{% url 'aboutus' %}">About Us</a>
+                        <a style="font-size: 15px; color: black; " href="{% url 'terms' %}">Terms and Conditions</a>
+                        <a style="font-size: 15px; color: black;" href="{% url 'privacy' %}">Privacy Policy</a>
+                      
+                        
+                    </div>
+                   
+                    
+                    <div class="footer-col">
+                        
+                    </div>
+                </div>
+               <div style="font-size: 13px; color: black;" >© All Rights Reserved. 2023 ETnets.com Plc</div> 
+            </div>
+        </footer>
+          
+        </div>
+  
+      </div>
+      
+  
+  
+  
+   
+  
+  
+  
+  
+      
+    
+    
+    
+    
+    
+    </div>
+
+
+
+ 
+ 
+</main>
+
+  
+
+
+
+
+{% endblock %}

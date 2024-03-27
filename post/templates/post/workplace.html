@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="topics">
+    <div class="topics__header">
+        <h1 style="font-size: 17px; color: black; font-weight: 700;">Recent Work Locations</h1>
+    </div>
+    <ul class="topics__list">
+        <li>
+            <a href="{% url 'vacancy' %}" class="active">Total <span style="color: black; margin-left: 3px;">{{workplaces.count}}</span></a>
+        </li>
+        {% for workplace in workplaces %}
+        <li>
+            <a href="{% url 'vacancy' %}?q={{workplace.woplace}}">{{workplace.woplace}}<span style="color: black; margin-left: 3px;">{{workplace.job_set.all.count}}</span></a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+   
+    
+</div>
+
+
+
+
+
+

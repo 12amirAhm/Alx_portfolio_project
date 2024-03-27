@@ -1,0 +1,244 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+<main id="main" class="main">
+<style>
+  #modalContainer {
+	background-color:rgba(0, 0, 0, 0.3);
+	position:absolute;
+  top:0;
+	width:100%;
+	height:100%;
+	left:0px;
+	z-index:10000;
+	background-image:url(tp.png); /* required by MSIE to prevent actions on lower z-index elements */
+}
+
+#alertBox {
+	position:relative;
+	width:33%;
+	min-height:100px;
+  max-height:400px;
+	margin-top:50px;
+	border:1px solid #fff;
+	background-color:#fff;
+	background-repeat:no-repeat;
+  top:30%;
+}
+
+#modalContainer > #alertBox {
+	position:fixed;
+}
+
+#alertBox h1 {
+	margin:0;
+	font:bold 1em Raleway,arial;
+	background-color:#f97352;
+	color:#FFF;
+	border-bottom:1px solid #f97352;
+	padding:10px 0 10px 5px;
+}
+
+#alertBox p {
+	height:50px;
+	padding-left:5px;
+  padding-top:30px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+#alertBox #closeBtn {
+	display:block;
+	position:relative;
+	margin:10px auto 10px auto;
+	padding:7px;
+	border:0 none;
+	width:70px;
+	text-transform:uppercase;
+	text-align:center;
+	color:#FFF;
+	background-color:#f97352;
+	border-radius: 0px;
+	text-decoration:none;
+  outline:0!important;
+}
+
+/* unrelated styles */
+
+#mContainer {
+	position:relative;
+	width:600px;
+	margin:auto;
+	padding:5px;
+	border-top:2px solid #fff;
+	border-bottom:2px solid #fff;
+}
+
+h1,h2 {
+	margin:0;
+	padding:4px;
+}
+
+code {
+	font-size:1.2em;
+	color:#069;
+}
+
+#credits {
+	position:relative;
+	margin:25px auto 0px auto;
+	width:350px; 
+	font:0.7em verdana;
+	border-top:1px solid #000;
+	border-bottom:1px solid #000;
+	height:90px;
+	padding-top:4px;
+}
+
+#credits img {
+	float:left;
+	margin:5px 10px 5px 0px;
+	border:1px solid #000000;
+	width:80px;
+	height:79px;
+}
+
+.important {
+	background-color:#F5FCC8;
+	padding:2px;
+
+}
+
+@media (max-width: 600px) 
+{
+  #alertBox {
+	position:relative;
+	width:90%;
+  top:30%;
+}
+}
+</style>
+    
+
+<script>
+  var ALERT_TITLE = "Oops!";
+var ALERT_BUTTON_TEXT = "Ok";
+
+if(document.getElementById) {
+	window.alert = function(txt) {
+		createCustomAlert(txt);
+	}
+}
+
+
+
+function removeCustomAlert() {
+	document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+}
+function ful(){
+alert('You Have Successfuly Applied For this Position Thankyou!!');
+}
+</script>
+   
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-4">
+    
+     
+      {% if job.user == request.user %}
+      <div style="margin-bottom: 20px;" >
+        <a style="background-color: rgb(0, 157, 255); color: #000; font-size: 15px;" class="btn btn--main" href="{% url 'update-job' job.id %}">
+          Update Vacancy
+        </a>
+        <a style="background-color: red; color: #000; font-size: 15px;" class="btn btn--dark" href="{% url 'delete-job' job.id %}">
+         Delete Vacancy
+        </a>
+      </div>
+      {% endif %}
+    <div style="color: red; font-weight: 600; font-size: 25px;">
+        <span style="color: red; font-weight: 600;">Dead Line</span>
+        <p>{{job.Dead_Line}}</p>
+      </div>
+
+ </div>
+ <div class="col-xl-8">
+     <div  >
+          <div>
+            <span style="font-size: 20px; font-weight: 600;">Job Descriptions</span>
+            <p>{{job.Job_Description}}</p>
+          </div>
+          <div>
+            <span style="font-size: 20px; font-weight: 600;">Additional Requirements</span>
+            <p>{{job.Additional_Requirments}}</p>
+          </div>
+           <div>
+            <span style="font-size: 20px; font-weight: 600;">Employment status</span>
+            <p>{{job.Employment_Status}}</p>
+          </div>
+           <div>
+            <span style="font-size: 20px; font-weight: 600;">Quantity</span>
+            <p>{{job.Quantity}}</p>
+          </div>
+           <div>
+            <span style="font-size: 20px; font-weight: 600;">Salary</span>
+            <p>{{job.Salary}}</p>
+          </div>
+          <div >
+            <span style="font-size: 20px; font-weight: 600;">Use this info. To Apply</span>
+            <p>{{job.How_to_Apply}}</p>
+          </div>
+          <div>
+          <form action="" method="POST">
+             {% csrf_token %}     
+             {% if request.user == job.user %}
+            <p></p>
+            {% else %}
+                    <button type="submit"  style="font-size: 15px; background-color: rgb(0, 157, 255); color: black; margin-bottom: 7px;"  class="btn btn--main" > I want to Apply Now  </button>
+                      {% if messages %}
+                   <ul style="color: rgb(0, 157, 255); margin-bottom: 25px; font-size: 20px; font-weight: 700; background-color: white;" class="messages">
+                     {% for message in messages %}
+                     <li>{{ message }}</li>
+                     {% endfor %}
+                    </ul>
+                      {% endif %}
+                      {% endif %}
+             </form>
+              </div>
+                  {% if request.user == job.user %}
+                    <div class="">
+                      <h3 class="participants__top" style="background-color: rgb(83, 83, 83); margin-top: 7px;"> <span style="font-size: 20px; color: rgb(0, 157, 255); font-weight: 600; margin: 5px;">{{candidates.count}} People wants to apply For This Job </span></h3>
+                         <div class="participants__list scroll">
+                           {% for user in candidates %}
+                              <a href="{% url 'profile' user.username %}"class="participant">
+                               {% if user.profile.picture %} 
+                                 <div class="avatar avatar--medium">
+                                    <img style="width: 40px; height: 40px; border-radius: 50px;" src="{{user.profile.picture.url}}" />
+                                           </div>
+                                           {% else %}
+                                           <img style="width: 40px; height: 40px; border-radius: 50px;" src="{% static '\images\default_profile.png' %}" />
+                                           {% endif %}
+                                           <div>
+                                            <span style="color: rgb(0, 0, 0);">@{{user.username}}</span>
+                                            <div style="color: rgb(0, 157, 255); font-size: 13px; font-weight: 800;"> View Profile</div>
+                                          </div>
+                                          <div style="margin-bottom: 7px;">
+                                            <hr class="divider">
+                                          </div>  
+                                </a>
+              {% endfor %}
+            </div>
+          </div>
+     {% else %}
+     <h3 style="margin-bottom: 20px;" class="participants__top"> <span style="font-size: 20px; color: black;">{{candidates.count}} Peoples Intersted For This Job   </span></h3>
+     {% endif %}
+   </div>
+   </div>
+
+
+</div>
+</section>
+</div>
+</main>
+{% endblock content %}
+

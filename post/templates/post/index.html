@@ -1,0 +1,595 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{% load social_share %}
+<main >
+    <div class="container">
+        <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'vacancy' %}">
+          <i  style="font-size: 25px; color: black;" class="fa-solid fa-briefcase fa-bounce"></i>
+          <span style="font-size: 25px;">New Jobs</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        
+          <!-- <i style="font-size: 25px; color: black;" class="fa-solid fa-comments-dollar fa-beat"></i> -->
+          <i style="font-size: 25px; color: black;" class="bi bi-currency-exchange fa-beat"></i>
+      
+          <span>ETnets Premium</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'payblue' %}">
+              <i style="font-size: 25px; color: rgb(0, 157, 255);" class="bi bi-patch-check-fill fa-beat"></i> 
+               <span>ETnets Blue</span>
+              
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'paybuss' %}">
+              <i style="font-size: 25px; color: goldenrod;" class="bi bi-patch-check-fill fa-beat "></i>
+             <span>ETnets Business Official</span>
+             
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'postprice' %}">
+              <i style="font-size: 25px; color: black;"  class="fa-solid fa-user-tie fa-beat"></i>
+            
+              </i><span>ETnets Job Promote</span>
+             
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Components Nav -->
+
+      
+
+
+      <li class="nav-heading"></li>
+
+     
+      <li  class="nav-item">
+        <a style="margin-top: 10px;" class="nav-link collapsed" href="{% url 'profile' request.user %}">
+          {% if request.user.profile.picture %} 
+          {% if request.user.profile.golden_checker %}
+              <div  >
+          <img style="width: 40px; height: 40px; border-radius: 5px;" src="{{request.user.profile.picture.url }}" />
+              </div>
+              {% else %}
+              <div  >
+                <img style="width: 40px; height: 40px; border-radius: 50px;" src="{{request.user.profile.picture.url }}" />
+              </div>
+                    {% endif %}
+                 {% else %}
+                  <img style="width: 40px; height: 40px; border-radius: 50px;" src="{% static '\images\default_profile.png' %}" />
+          {% endif %}
+          
+          <span style="margin-left: 3px;">Profile</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'aboutus' %}">
+          
+          <span>About Us</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'terms' %}">
+         
+          <span>Term and Conditions</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'privacy' %}">
+          
+          <span>Privacy Policy</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'logout' %}">
+          <i class="fa-solid fa-right-from-bracket fa-bounce"></i>
+          <span>SignOut</span>
+        </a>
+      </li>
+
+
+
+
+      <!-- End Contact Page Nav -->
+
+     
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <div style="margin-bottom: 10px; font-size: 13px; font-weight: 800;" class="col-xxl-2 col-md-4">
+        <ul class="nav nav-tabs nav-tabs-bordered">
+
+          <li class="nav-item">
+            <button   class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">
+              <i style="font-size: 15px;" class="fa-solid fa-house"></i>
+              Home
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <!-- <a href="{% url 'update-user' %}"> -->
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                <i style="font-size: 15px;" class="bi bi-building-fill"></i>
+                Business
+                
+              </button>
+            <!-- </a> -->
+           
+          </li>
+          </ul>
+         
+
+
+        <!-- <ul  class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-secondary); --bs-nav-pills-link-active-bg: var(--bs-white);">         
+
+          <li class="nav-item" role="presentation">
+            
+              <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" 
+              type="button" role="tab" aria-selected="true">
+              Home 
+            </button>
+            
+           
+          </li>
+          <li class="nav-item" role="presentation">
+
+            
+                <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="true">Business</button>
+         
+          </li>
+         
+      </ul> -->
+      </div>
+      
+    </div><!-- End Page Title -->
+  
+   
+      <div class="tab-content pt-2">
+        <div style="color: rgb(0, 157, 255) ;" class="tab-pane fade show active profile-overview" id="profile-overview">
+     
+      <section class="section dashboard">
+        
+        <div class="row">
+          <!-- Left side columns -->
+          <div class="col-lg-8">
+            <div href="{% url 'newpost' %}" style="margin-bottom: 10px; background-color: white; width: 80%; border-radius: 10px; border: solid 0.1px rgb(107, 107, 107);">
+              <form  action="{% url 'vacancy' %}" method="GET" class="header__search">
+                <div  href="{% url 'newpost' %}" style=" border-radius: 20px; margin: 7px; display: flex; align-items: center;">
+                  <p href="{% url 'newpost' %}" style="color: black; font-size: 15px; " > 
+                        What's on Your Mind Today ?</p>
+                        <p>
+                          <a href="{% url 'newpost' %}" style="margin-left: 10px; font-size: 25px; color: rgb(0, 157, 255);" type="submit"   >
+               
+                            <i class="fa-solid fa-feather"></i>
+                          </a>
+                          <a href="{% url 'newpost' %}"  style="font-size: 25px; font-weight: 550; color: rgb(0, 157, 255);"> Add Post</a>
+  
+                        </p>  
+                  
+                  
+                      </div>
+              </form>     
+            </div>
+            {% for post_item in post_items %}
+           
+            <div  class="auto">
+                <div style="width: 22rem;" class="card" >
+                 
+                    <span style="margin: 2px; align-items: center; margin-left: 30px;">{% for tag in post_item.tags.all %}<a href="#">#{{ tag }}</a>{% endfor %}</span>
+               
+                  {% if post_item.content.first.file %} 
+                  <video loop muted autoplay ="autoplay" style="width: 100%; height: 100%; " controls="controls" preload="metadata">
+                    <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">      
+                   </video>
+                   <a href="{% url 'postdetails' post_item.id %}" 
+                  style="font-size: 18px; font-weight: 300; margin: 5px; color: black;"
+                  href=""> {{ post_item.caption }}</a>
+                   {% else %}
+                  <p style="margin: 10px;">
+                    <a href="{% url 'postdetails' post_item.id %}" 
+                    style="font-size: 18px; font-weight: 300; margin: 5px; color: black;"
+                    href=""> {{ post_item.caption }}</a>
+                    </p>
+                  {% endif %}
+                {% if post_item.postpic %}
+                <img  src="{{post_item.postpic.url }}" />
+                {% else %}
+                 <p></p>
+                {% endif %}
+  
+                <div class="card-body">
+                  <div  style="display: flex; flex-direction: row; margin-bottom: 9px; align-items: center; ">
+                    <a  style="margin-top: 7px;" href="{% url 'profile' post_item.user %}" class="roomListRoom__author">
+                      {% if post_item.user.profile.picture %} 
+                      {% if post_item.user.profile.golden_checker %} 
+                      <div >
+                        <img style="width: 40px; height: 40px; border-radius: 5px;" src="{{ post_item.user.profile.picture.url }}" />
+                      </div>
+                      {% else %}
+                      <div >
+                        <img style="width: 40px; height: 40px; border-radius: 50px;" src="{{ post_item.user.profile.picture.url }}" />
+                      </div>
+                      {% endif %}
+                      {% else %}
+                    <img style="width: 40px; height: 40px; " src="{% static '\images\default_profile.png' %}" />
+                      {% endif %}
+                      <div style="display: flex; align-items: center;">
+                        <span style="margin-right: 2px;" class="topics">@{{post_item.user.username}}</span>
+                      <div>
+                        {% if post_item.user.profile.blue_checker %}
+                        <i style="font-size: 20px; color: rgb(0, 157, 255);" class="bi bi-patch-check-fill "></i> 
+                        {% else %}
+                        <p> </p>
+                        {% endif %}
+                     </div>
+                     <div>
+                      {% if post_item.user.profile.golden_checker %} 
+                      <i style="font-size: 20px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+                      {% else %}
+                      <p> </p>
+                      {% endif %}
+      
+                      </div>
+
+                      <div>
+                        {% if post_item.user.profile.job_checker %} 
+                        <i style="font-size: 20px; color: black;" class="fa-solid fa-user-tie "></i>
+                        {% else %}
+                        <p> </p>
+                        {% endif %}
+        
+                        </div>
+  
+                      </div>
+                      
+  
+                  </a>
+                
+                 <div style="float: right; margin-left: 120px;">
+                  <span style="margin: 10px; color: black; font-size: 10px; float: right; ;"> {{ post_item.posted | naturaltime }}</span>
+              
+                 </div>
+                  
+  
+                  </div>
+                <span style="color: black; font-size: 20px;" >{{ post_item.likes }} <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">likes</a></span>
+                <a href="{% url 'postlike' post_item.id %}">
+                  <button style="background-color: rgb(0, 157, 255); color: white; font-size: 12px;"  type="button" class="btn btn-outline-success">
+                    <i class="fa-solid fa-thumbs-up fa-beat"></i>
+                    Like</button>
+                </a>
+                <a href="{% url 'postdetails' post_item.id %}">
+
+                  <button style="font-size: 12px;" type="button" class="btn btn-outline-secondary">
+                    <i class="fa-regular fa-comments"></i>
+                    Comment
+                  </button>
+                </a>
+                
+                </div>
+                </div>
+              
+               </div>
+               
+               {% endfor %}
+
+               <!-- {% for postin in postins %}
+               
+               <div  class="auto">
+
+                <div style="width: 22rem;" class="card" >
+                  <a  style="cursor: pointer;" >
+                    <div class="gallery-item" tabindex="0">
+                      {% if postin.content.first.file %} 
+                     
+                      <div 
+                      style="font-size: 18px; font-weight: none; color: black; margin-bottom: 5px;"
+                    > {{ postin.caption }}
+                    </div>
+                      <video loop muted autoplay ="autoplay" style="width: 50%; height: 70%;" controls="controls" preload="metadata">
+                        <source src="{{ postin.content.first.file.url }}#t=0.5" type="video/mp4">      
+                       
+                      </video>
+                      <div>
+                        <hr class="dropdown-divider">
+                      </div>
+                    {% else %}
+                    <div>
+                      <hr class="divider">
+                    </div>
+        
+                      <div
+                      style="font-size: 20px; font-weight: none; color: black; margin-bottom: 5px; margin-top: 15px; font-weight: 600;"
+                    > {{postin.caption }}
+                    </div>
+                    
+                    {% endif %}
+                  {% if postin.postpic %} 
+                  
+                    <div>
+                      <img style=" width: 50%; height: 50%;" src="{{postin.postpic.url }}" />
+                    </div>
+                    <div>
+                      <hr class="dropdown-divider">
+                    </div>
+        
+                  {% else %}
+                    <div class="topics">
+                    </div>
+                    {% endif %}
+                      <div class="gallery-item-info">
+                           <ul>
+                              <li style="color: rgb(0, 157, 255);" 
+                              class="gallery-item-likes"><span 
+                              class="visually-hidden">Likes:</span>
+                              <i class="fa-solid fa-thumbs-up"></i>
+                               {{postin.likes}}</li>
+                          </ul>
+                      </div>
+                     
+                    </div>
+                </a>
+              
+
+
+
+                </div>
+               
+
+               </div>
+               
+           {% endfor %}
+
+
+ -->
+
+
+
+
+               <div style="margin: 7px; margin-bottom: 7px; font-weight: 800;">
+                <h4 >Recommended Accounts to Follow</h4>
+               </div>
+                 {% include 'post/morepep.html' %} 
+             
+           
+          </div>
+        
+          <div   class="col-lg-4">
+            <div style="align-items: center; color: black; justify-content: space-between; margin-bottom: 5px; margin-left: 13px;">
+        
+              <i style="font-size: 27px; margin-right: 3px;" class="fa-solid fa-user-plus"></i>
+              
+              <span style="margin-bottom: 20px; font-size: 17px; font-weight: 600; ">Who to Follow</span>
+          </div>
+             <div class="card">
+               {% include 'post/peptofollow.html' %} 
+             </div>
+          </div> 
+          </div>
+        </div>
+      </section>
+      </div>
+
+
+    
+ 
+    <div style="color: rgb(0, 157, 255) ;" class="tab-pane fade profile-edit" id="profile-edit">
+   
+      <div style="margin-bottom: 5px;">
+        <h2>Official Business Accounts</h2>
+        <p>Here You can find quality business products and services as you need.</p>
+        {% if user.profile.golden_checker %}
+        <p></p>
+        {% else %}
+        <a href="{% url 'paybuss' %}">
+          <button type="button" class="btn btn-outline-secondary">Subscribe now</button>
+        </a>
+       
+        {% endif %}
+    </div>
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+      
+          <div  class="auto">
+            {% for post_item in post_items %}
+                
+                {% if post_item.user.profile.golden_checker %} 
+
+
+                <div style="width: 22rem;" class="card" >
+                 
+                  <span style="margin: 2px; align-items: center; margin-left: 30px;">{% for tag in post_item.tags.all %}<a href="#">#{{ tag }}</a>{% endfor %}</span>
+             
+                {% if post_item.content.first.file %} 
+                <video loop muted autoplay ="autoplay" style="width: 100%; height: 100%; " controls="controls" preload="metadata">
+                  <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">      
+                 </video>
+                 <a href="{% url 'postdetails' post_item.id %}" 
+                style="font-size: 18px; font-weight: 300; margin: 5px; color: black;"
+                href=""> {{ post_item.caption }}</a>
+                 {% else %}
+                <p style="margin: 10px;">
+                  <a href="{% url 'postdetails' post_item.id %}" 
+                  style="font-size: 18px; font-weight: 300; margin: 5px; color: black;"
+                  href=""> {{ post_item.caption }}</a>
+                  </p>
+                {% endif %}
+              {% if post_item.postpic %}
+              <img  src="{{post_item.postpic.url }}" />
+              {% else %}
+               <p></p>
+              {% endif %}
+
+              <div class="card-body">
+                <div  style="display: flex; flex-direction: row; margin-bottom: 9px; align-items: center; ">
+                  <a  style="margin-top: 7px;" href="{% url 'profile' post_item.user %}" class="roomListRoom__author">
+                    {% if post_item.user.profile.picture %} 
+                    {% if post_item.user.profile.golden_checker %} 
+                    <div >
+                      <img style="width: 40px; height: 40px; border-radius: 5px;" src="{{ post_item.user.profile.picture.url }}" />
+                    </div>
+                    {% else %}
+                    <div >
+                      <img style="width: 40px; height: 40px; border-radius: 50px;" src="{{ post_item.user.profile.picture.url }}" />
+                    </div>
+                    {% endif %}
+                    {% else %}
+                  <img style="width: 40px; height: 40px; " src="{% static '\images\default_profile.png' %}" />
+                    {% endif %}
+                    <div style="display: flex; align-items: center;">
+                      <span style="margin-right: 2px;" class="topics">@{{post_item.user.username}}</span>
+                    <div>
+                      {% if post_item.user.profile.blue_checker %}
+                      <i style="font-size: 20px; color: rgb(0, 157, 255);" class="bi bi-patch-check-fill "></i> 
+                      {% else %}
+                      <p> </p>
+                      {% endif %}
+                   </div>
+                   <div>
+                    {% if post_item.user.profile.golden_checker %} 
+                    <i style="font-size: 20px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+                    {% else %}
+                    <p> </p>
+                    {% endif %}
+    
+                    </div>
+
+                    <div>
+                      {% if post_item.user.profile.job_checker %} 
+                      <i style="font-size: 20px; color: black;" class="fa-solid fa-user-tie "></i>
+                      {% else %}
+                      <p> </p>
+                      {% endif %}
+      
+                      </div>
+
+                    </div>
+                    
+
+                </a>
+              
+               <div style="float: right; margin-left: 120px;">
+                <span style="margin: 10px; color: black; font-size: 10px; float: right; ;"> {{ post_item.posted | naturaltime }}</span>
+            
+               </div>
+                
+
+                </div>
+              <span style="color: black; font-size: 20px;" >{{ post_item.likes }} <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">likes</a></span>
+              <a href="{% url 'postlike' post_item.id %}">
+                <button style="background-color: rgb(0, 157, 255); color: white; font-size: 12px;"  type="button" class="btn btn-outline-success">
+                  <i class="fa-solid fa-thumbs-up fa-beat"></i>
+                  Like</button>
+              </a>
+              <a href="{% url 'postdetails' post_item.id %}">
+
+                <button style="font-size: 12px;" type="button" class="btn btn-outline-secondary">
+                  <i class="fa-regular fa-comments"></i>
+                  Comment
+                </button>
+              </a>
+              
+              </div>
+              </div>
+
+
+              {% else %}
+            <p> </p>
+            {% endif %}
+            {% endfor %}
+            </div>
+       
+            {% include 'post/morebuss.html' %} 
+       
+           
+       
+
+
+
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+          
+          <!-- Recent Activity -->
+          <div class="card">
+            
+           
+            
+            
+          </div><!-- End Recent Activity -->
+
+         
+
+
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+   
+   
+   
+   
+   
+   
+    </div>
+  </div>
+
+
+
+
+
+
+
+  </main><!-- End #main -->
+  
+
+</div>
+
+
+
+
+
+
+ 
+ 
+</main>
+
+  
+
+
+
+
+{% endblock %}

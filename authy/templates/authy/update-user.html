@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        
+        
+         <div style="margin-top: 100px; margin-left: 20px; padding: 5px; border-radius: 10px; border: solid 0.5px black; align-items: center; justify-content: space-around;" class="col-xl-6">
+
+    
+            <div class="layout__body"> 
+              <form  action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                   {% for field in form %}
+                  
+    
+                <div style="color: black; font-weight: 600; " class="row mb-3" >
+                  <label class="col-md-4 col-lg-3 col-form-label" style="color: black;" for="profile_pic">{{field.label}}</label>
+                  <div   class="col-md-8 col-lg-9">
+                  <div   class="form-control" > {{field}} </div>
+                  </div>
+                </div>
+                {% endfor %}
+                  <div style="margin-top: 10px;" class="text-center">
+                     <button style="font-size: 15px;"class="btn btn-secondary"type="submit">Update</button>
+                </div>
+              </form>
+            </div>
+            </div>
+
+  
+       
+     
+
+    
+ 
+{% endblock content %}

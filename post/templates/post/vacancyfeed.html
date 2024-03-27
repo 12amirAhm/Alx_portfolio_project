@@ -1,0 +1,64 @@
+{% for job in jobs %}
+{% load static %}
+
+    <div style="width: 22rem;" class="card">
+      <div class="card-body">
+        <div style="display: flex; flex-direction: row; ">
+          <a  href="{% url 'profile' job.user %}" class="roomListRoom__author">
+            {% if job.user.profile.picture %} 
+          
+            <div >
+             <img style="width: 40px; height: 40px; border-radius: 5px;" src="{{ job.user.profile.picture.url }}" />
+            </div>
+            {% else %}
+          <img style="width: 40px; height: 40px; " src="{% static '\images\default_profile.png' %}" />
+            {% endif %}
+            <div style="display: flex; align-items: center;">
+              <span style="color: black; font-size: 12px;" class="topics">@{{job.user.username}}</span>
+            <div>
+              {% if job.user.profile.job_checker %} 
+              <i style=" margin-left: 2px;   font-size: 20px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+            
+              {% else %}
+              <p> </p>
+              {% endif %}
+           </div>
+            <div>
+              {% if job.user.profile.job_checker %} 
+              <i style=" margin-left: 2px;  font-size: 20px; color: black;"  class="fa-solid fa-user-tie "></i>
+            
+              {% else %}
+              <p> </p>
+              {% endif %}
+           </div>
+
+
+            </div>
+            
+        </a>
+    
+      
+      
+        <div style="display: flex; flex-direction: column; margin-left: 20px;">
+          <div class="roomListRoom__content">
+              <h3 style="font-size: 30px;">{{job.businessname.የቢዝነሱስም}}</h3>
+              <a style="color: rgb(0, 157, 255); font-weight: 700;" href="{% url 'jobs' job.id %}">#{{job.JobTitle.titlename}}</a>
+          </div>
+          <div>
+              <span style="margin-left: 20px; color: black; font-size: 10px;">Posted {{job.created|timesince}} ago</span>
+           </div>
+        </div>
+      </div>
+      <a  href="{% url 'jobs' job.id %}">
+        <button style="margin-top: 15px; font-size: 14px; float: right;" href="{% url 'jobs' job.id %}" type="button" class="btn btn-outline-secondary">More</button>
+      </a>
+      
+      </div>
+
+    </div>
+        
+    
+   
+  {% endfor %}
+
+

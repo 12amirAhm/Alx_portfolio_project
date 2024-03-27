@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<main >
+  <style>
+
+.buttonpo {
+        background-color:white; color: black; padding: 5px; 
+       border-radius: 20px; width: 130px; 
+       align-items: center; 
+       font-weight: 600;
+    }
+    
+    .buttonpo:hover {background-color: rgb(196, 196, 196) ; color: #000;}
+    
+    .buttonpo:active {
+      background-color: gray;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      color: white;
+    }
+     
+
+
+
+    .button {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 8px 16px;
+
+  background: #499ab1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:active {
+  background: #71c6dd;
+}
+
+.button__text {
+ font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  transition: all 0.2s;
+}
+
+.button--loading .button__text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: black;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.8s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+
+
+.image-container{
+    width: 90%;
+    margin: 0 auto 30px auto;
+}
+.image-container img{
+    display: block;
+    position: relative;
+    max-width: 100%;
+    max-height: 400px;
+    margin: auto;
+}
+figcaption{
+    margin: 20px 0 30px 0;
+    text-align: center;
+    color: #2a292a;
+}
+input[type="file"]{
+  
+    background-color: white;
+    cursor: pointer;
+   width: 100%;
+    justify-content: space-between;
+    text-rendering: auto;
+    font-size: 10px;
+    color: black;
+
+}
+label{
+    display: block;
+   
+   
+    color: white;
+    font-size: 40px;
+  align-items: center;
+    width: 300px;
+    padding: 18px 0;
+    border-radius: 5px;
+    margin: auto;
+    
+}
+
+@media (min-width: 1751px) {
+              .mobile {
+                display: none;
+               
+              }
+            }
+  </style>
+<div style="align-items: center; display: flex; float: none; border-radius: 40px;" class="container">
+ 
+  <div  style="margin-top: 100px; margin-left: 20px; padding: 5px; border-radius: 10px; border: solid 0.5px black; align-items: center; justify-content: space-around;" class="col-xl-4.2" >
+    <div style="border-radius: 40px; align-items: center;" >
+      <div class="layout__body">
+        <h4>Whats on your mind Insert an Image or Text</h4>
+    
+      <form method="post" action="" role="form" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="form__group ">
+          <label  style="font-size: 30px; color: #000;" for="room_name"> Insert Picture <i style="font-size: 30px;" class="col-md-4 col-lg-3 col-form-label" ></i></label>
+          <div   class="col-md-8 col-lg-9">
+            <div class="form-control">   
+          {{ form.postpic}}
+          </div>
+          </div>
+           </div>
+        <div class="form__group "> 
+          <label  style="font-size: 30px; color: #000;" for="room_name"> Insert Video <i style="font-size: 30px; color: black; margin-left: 5px;" class="col-md-4 col-lg-3 col-form-label"></i></label>
+          <span style="color: rgb(255, 44, 44);">Use Video Under 10 minute</span>
+          <div   class="col-md-8 col-lg-9">
+            <div class="form-control"> 
+          {{ form.content }}
+          </div>
+          </div>
+           </div>
+         <div class="form__group ">
+          <label for="room_name" style="color: #000;" class="col-md-4 col-lg-3 col-form-label">Description</label>
+          <div   class="col-md-8 col-lg-9">
+            <div class="form-control"> 
+          {{ form.caption }}
+          </div>
+          </div>
+        </div>
+    <div class="form__group ">
+          <label for="room_name" style="color: #000;" class="col-md-4 col-lg-3 col-form-label"># Tag</label>
+          <div   class="col-md-8 col-lg-9">
+            <div class="form-control"> 
+          {{ form.tags }}
+          </div>
+          </div>
+        </div> 
+        <button style="float: right; margin-top: 15px;" class="buttonpo" onclick="this.classList.toggle('button--loading')" type="submit">
+          Post 
+      </button>
+  </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+  {% endblock content %}
+<!-- 
+
+    /*
+   
+     
+    
+    */

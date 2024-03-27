@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main >
+     <div style="align-items: center;" class="container-fluid">
+      <div class="container p-5">
+        <div class="row">
+          <div class="col-lg-4 col-md-12 mb-4">
+
+          </div>
+   
+         
+            <h1 style="font-size: 20px; font-weight: normal; color: #000; font-weight: 700;">Find Business and Users Here</h1>
+            <i style="color: #000; font-size: 20px; margin-bottom: 5px;" class="fa-solid fa-user-plus"></i>
+            <div style="margin-bottom: 20px;">
+              <form  action="" method="GET" class="header__search">
+                <label style="align-items: center;" >
+                  
+                
+                  <input style="background-color: white; color:black; font-size: 20px;" name="q" placeholder=" Enter Username ...." />
+                 <button style="border:none ; background-color: white; margin-top: 3px;" type="submit">
+                  <i 
+                  style="font-size: 30px; color:  rgb(0, 157, 255)"
+                  class="fa-solid fa-magnifying-glass"></i>
+                 </button>
+                 
+                 
+                </label>
+              </form>
+            </div>
+           
+            
+              <div class="auto" >
+                {% for user in users %}
+                <div style="width: 22rem;" class="card">
+                  <div class="card-body">
+                    <div style="display: flex; flex-direction: row; ">
+               
+                      <a href="{% url 'profile' user.username %}" class="roomListRoom__author" >
+                          {% if user.profile.picture %} 
+                          {% if user.profile.golden_checker %}
+                            <div >
+                              <img style="width: 80px; height: 80px; border-radius: 5px;" src="{{user.profile.picture.url}}" />
+                          </div>
+                          {% else %}
+                          <div >
+                            <img style="width: 80px; height: 80px; border-radius: 50px;" src="{{user.profile.picture.url}}" />
+                          </div>
+                        {% endif %}
+                        {% else %}
+                          <img style="width: 80px; height: 60px; border-radius: 10px;" src="{% static '\images\default_profile.png' %}" />
+                         {% endif %}
+                         <span style="color: #000;">@{{ user.username }}</span>
+                      </a>
+                      <div style="display: flex; flex-direction: column; margin-left: 20px;">
+                        <div class="roomListRoom__content">
+                          {% if user.profile.first_name %}
+                          
+                            <span style="font-size: 20px; font-weight: 700;">{{ user.profile.first_name }}</span>
+                          
+                            
+                            {% else %}
+                            <p>
+          
+                            </p>
+                          {% endif %}
+                        </div>
+                        
+                      </div>
+                      <!-- <div class="roomListRoom__actions">
+                          <span>{{ user.followers_count }}</span>
+                      </div> -->
+                      <div>
+                        {% if user.profile.golden_checker %} 
+                        <i style=" margin-left: 5px; margin-top: 5px;  font-size: 20px; color: goldenrod;" class="bi bi-patch-check-fill "></i>
+                      
+                        {% else %}
+                        <p> </p>
+                        {% endif %}
+                     </div>
+                      <div>
+                        {% if user.profile.job_checker %} 
+                        <i style=" margin-left: 5px; margin-top: 5px;  font-size: 20px; color: black;"  class="fa-solid fa-user-tie "></i>
+                      
+                        {% else %}
+                        <p> </p>
+                        {% endif %}
+                     </div>
+                     <div>
+                      {% if user.profile.blue_checker %} 
+                      <i style= "margin-left: 5px; margin-top: 5px; font-size: 20px; color: rgb(0, 157, 255);" class="bi bi-patch-check-fill "></i> 
+                      
+                      {% else %}
+                      <p> </p>
+                      {% endif %}
+                   </div>
+                    </div>
+                    <a href="{% url 'profile' user.username %}">
+                      <button style="margin-top: 15px; font-size: 14px; float: right;" type="button" class="btn btn-outline-secondary">View Profile</button>
+                    </a>
+                  </div>
+                </div>
+             {% endfor %}
+     </div>
+     </div>
+</main>
+
+{% endblock content %}
+
+

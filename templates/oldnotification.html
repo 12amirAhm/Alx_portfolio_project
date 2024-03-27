@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% load humanize %}
+<main style="background-color: #333333;" class="layout layout--3">
+  <style>
+     .buttonf {
+        background-color: white; color: black; padding: 5px; 
+       border-radius: 20px; width: 130px; 
+       align-items: center; 
+       font-weight: 600;
+    }
+    
+    .buttonf:hover {background-color: black ; color: white;}
+    
+    .buttonf:active {
+      background-color: gray;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+      color: white;
+    }
+     
+  </style>
+
+<div class="container">
+  <div class="topics">
+     
+    </div>
+    
+   <div style="margin-top: 20px;" class="roomList">
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+   {% for notification in notifications %} 
+  <!-- Comment Notification -->
+   {% if notification.notification_type == 2 %}
+   <div  style="border: solid 1px gray; border-radius: 10px; margin-top: 8px; padding: 8px;" class="notification">
+
+
+   <article class="media">
+<figure class="media-left">
+ <p class="image is-64x64">
+     {% if notification.sender.profile.picture %}
+     
+      <a  href="{% url 'profile' notification.sender %}" class="avatar avatar--medium active">
+        <img src="{{ notification.sender.profile.picture.url }}" alt="Placeholder image">
+      </a>
+     
+    
+         
+       {% else %}
+       <a  href="{% url 'profile' notification.sender %}">
+        <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+       </a>
+       
+ 
+     {% endif %}
+     <a href="{% url 'profile' notification.sender %}"  >
+      <small>@{{ notification.sender.username }}</small> 
+     </a>
+ 
+ 
+ 
+ <a style="float: right;"
+ href="{% url 'delete-notification' notification.id %}"
+ class="delete"
+><i style="font-size: 25px; color: red;" class="fa-sharp fa-regular fa-circle-xmark"></i></a>
+<div style="float: right;"><small>{{ notification.date|naturaltime }}</small></div>
+ </p>
+ 
+</figure>
+
+<div class="media-content">
+ <div class="content">
+     
+     Commented:
+   <p style="color: lightgreen;">{{ notification.text_preview }}....</p>
+    
+ </div>
+</div>
+
+<div class="media-right">
+
+  {% if notification.post.postpic %}
+ <a href="{{notification.user.post_item.get_absolute_url }}" style="width: 50%; height: 50%; border-radius: 10px;">
+   <img  style="width: 30%; height: 30%; border-radius: 10px;" src="{{ notification.post.postpic.url }}">
+ </a>
+
+ {% else %}
+ <a href="{{notification.user.post_item.get_absolute_url }}" style="width: 50%; height: 50%; border-radius: 10px;">
+ " {{ notification.post.caption }} "
+</a>
+
+            
+ {% endif %}
+
+
+
+</div>
+</article>
+
+   </div>
+{% endif %}
+
+<!-- Follow Notification -->
+    {% if notification.notification_type == 3 %}
+    <div style="border: solid 1px gray; border-radius: 10px; margin-top: 8px; padding: 8px;" class="notification">
+    
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            {% if notification.sender.profile.picture %}
+            <a  href="{% url 'profile' notification.sender %}" class="avatar avatar--medium active">
+            <img
+              src="{{ notification.sender.profile.picture.url }}"
+              alt="Placeholder image"
+            />
+          </a>
+            {% else %}
+            <a  href="{% url 'profile' notification.sender %}">
+              <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+            </a>
+            
+           
+            {% endif %}
+            <a  href="{% url 'profile' notification.sender %}">
+              <small>@{{ notification.sender.username }}</small>
+            </a>
+            <a style="float: right;"
+            href="{% url 'delete-notification' notification.id %}"
+            class="delete"
+          ><i style="font-size: 25px; color: red; " class="fa-sharp fa-regular fa-circle-xmark"></i></a>
+        <div style="float: right; "><small>{{ notification.date|naturaltime }}</small></div>
+            
+        
+            
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+           
+          
+            <br />
+            <p><i style="font-size: 20px; margin-right: 3px; color: lightgreen;"  class="fa-regular fa-user"></i> Followed you!
+            
+            <a href="{% url 'profile' notification.sender %}" class="buttonf" style="padding-left: 24px; margin-left: 10px;  cursor: pointer;">Follow Back</a>
+            </p>
+     
+          </div>
+        </div>
+        
+      </article>
+    </div>
+    {% endif %}
+
+    <!-- FOR LIKE --->
+
+    {% if notification.notification_type == 1 %}
+    <div style="border: solid 1px gray; border-radius: 10px; margin-top: 8px; padding: 8px;" class="notification">
+    
+
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            {% if notification.sender.profile.picture %}
+            <a  href="{% url 'profile' notification.sender %}" class="avatar avatar--medium active">
+              <img
+              src="{{ notification.sender.profile.picture.url }}"
+              alt="Placeholder image"
+            />
+            </a>
+            
+            {% else %}
+            <a  href="{% url 'profile' notification.sender %}">
+              <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+            </a>
+      
+             
+            {% endif %}
+            <a  href="{% url 'profile' notification.sender %}">
+              <small>@{{ notification.sender.username }}</small>
+            </a>
+           
+         
+            <a style="float: right;"
+            href="{% url 'delete-notification' notification.id %}"
+            class="delete"
+          ><i style="font-size: 25px; color: red; " class="fa-sharp fa-regular fa-circle-xmark"></i></a>
+        <div style="float: right; "><small>{{ notification.date|naturaltime }}</small></div>
+          </p>
+           
+        
+        </figure>
+        
+          
+        <div style="margin-bottom: 3px;" class="media-content">
+          <div class="content">
+              
+           
+            <i style="font-size: 20px; margin-right: 3px; margin: 3px; margin-bottom: 3px; color: lightgreen;" class="fa-regular fa-thumbs-up"></i>
+            Liked your post
+          </div>
+         </div>
+         <div class="media-right">
+          {% if notification.post.postpic %}
+          <a href="{{notification.user.post_item.get_absolute_url }}" style="width: 50%; height: 50%; border-radius: 10px;">
+            <img  style="width: 30%; height: 30%; border-radius: 10px;" src="{{ notification.post.postpic.url }}">
+          </a>
+         
+          {% else %}
+          <a href="{{notification.user.post_item.get_absolute_url }}" style="width: 50%; height: 50%; border-radius: 10px;">
+         " {{ notification.post.caption }} "
+         </a>
+         
+                     
+          {% endif %}
+         </div>
+         
+            
+           
+          
+       
+      </article>
+    </div>
+    {% endif %} 
+   
+    
+{% endfor %}
+<div  style="color: lightgreen; font-size: 25px; margin-top: 20px;"> 
+  
+   <div>
+    <i style="color: white; font-size: 40px;" class="fa-solid fa-bullhorn"></i>
+   </div>
+  
+  Stay Tuned !! You will Be Notified Here, When there is New Updates 
+
+</div>
+
+    <!-- FOR LIKES --->
+  </div>
+</div>
+
+   </div>
+<div class="topics">
+      
+    </div>
+    
+
+</div>
+
+</main>
+
+
+{% endblock %}

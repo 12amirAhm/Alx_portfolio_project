@@ -1,0 +1,386 @@
+{% extends 'base.html' %}
+{% load social_share %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<main style="background-color: #333333;" class="layout layout--3">
+  <script>
+    window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader");
+
+  loader.classList.add("loader--hidden");
+
+  loader.addEventListener("transitionend", () => {
+    document.body.removeChild(loader);
+  });
+});
+  </script>
+  <style type = "text/css">  
+  
+        
+    .auto {  
+       display: block;  
+  
+padding-bottom: 100px;  
+       width: 100%;  
+       height: 950px;  
+       overflow: auto;  
+    }
+    
+    .loader {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #333333;
+transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader--hidden {
+opacity: 0;
+visibility: hidden;
+}
+
+.loader::after {
+content: "";
+width: 75px;
+height: 75px;
+border: 15px solid #dddddd;
+border-top-color: #71c6dd;
+border-radius: 50%;
+animation: loading 0.75s ease infinite;
+}
+
+@keyframes loading {
+from {
+transform: rotate(0turn);
+}
+to {
+transform: rotate(1turn);
+}
+}
+ </style>  
+
+  <div class="container">
+    <div class="topics">
+     
+    </div>
+    
+    <div style="margin-top: 20px;" class="roomList">
+
+
+    
+     
+      <div style="background-color: white;" class="roomListRoom">
+        <div class="roomListRoom__header">
+          <a href="" class="roomListRoom__author">
+              {% if post.user.profile.picture %} 
+              <div >
+                  <img style="width: 40px; height: 40px; border-radius: 20px;"  src="{{ post.user.profile.picture.url }}" />
+              </div>        
+              
+  
+               {% else %}
+              
+               <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+           
+              
+              {% endif %}
+              <span>@{{post.user.username}}</span>
+
+          </a>
+          <br>
+         
+          <p>{% for tag in post_item.tags.all %}<a href="{{ tag.get_absolute_url }}">#{{ tag }}</a>{% endfor %}</p>
+
+          <br>
+          <span style="margin: 10px; color: black;"> {{ post.posted | naturaltime }}</span>
+          
+      </div>
+
+
+      <div class="roomListRoom__content">
+        {% if post.content.first.file %} 
+          <a href="" 
+          style="font-size: 15px; font-weight: none; color: black;"
+          href=""> {{ post.caption }}</a>
+          
+          <video loop muted autoplay ="autoplay" style="width: 100%; height: 100%; border-radius: 20px;" controls="controls" preload="metadata">
+            <source src="{{ post.content.first.file.url }}#t=0.5" type="video/mp4">      
+           
+          </video>
+ 
+      
+          
+         
+        
+             
+ 
+          {% else %}
+          <p>
+            <a href="" 
+            style="font-size: 15px; font-weight: none; color: black;"
+            href=""> {{ post.caption }}</a>
+            
+          </p>
+          
+         {% endif %}
+         
+
+         {% if post.postpic %} 
+        
+        
+         <img style="border-radius: 20px;" src="{{post.postpic.url }}" />
+                            
+                            
+            
+
+         {% else %}
+         <p>
+           
+           
+         </p>
+         
+        {% endif %}
+
+       
+
+
+
+
+      </div>
+    
+
+
+
+
+      <div>
+        <a href="{% url 'postlike' post.id %}">
+     
+          <i style="font-size: 20px; color: black; margin-right: 90px; margin-left: 20px; cursor: pointer;"  class="fa-solid fa-thumbs-up"></i>
+      </a>
+      <div style="display: flex; align-items: center; margin-left: 13px; margin-bottom: 10px;">
+        <span style="color: black; font-size: 20px;" >{{ post.likes }} <a style="color: black; font-size: 12px;" class="post__name--underline" href="#">likes</a></span>
+      </div>
+
+      </div>
+      <div style="margin-top: 30px; align-items: center; display: flex; align-items: center;">
+
+
+        
+        
+     
+          
+     
+        {% if favorited is True %}
+        <div class="media-right">
+          <a href="{% url 'postfavorite' post.id %}">
+            
+            <i style="font-size: 25px; color: red; margin-right: 90px; margin-left: 20px;  cursor: pointer; " 
+            class="fa-sharp fa-regular fa-circle-xmark">
+            </i>
+          </a>
+          
+        </div>
+        {% else %}
+        
+        <div class="media-right">
+          <a href="{% url 'postfavorite' post.id %}">
+        
+            <i class="fa-solid fa-file-arrow-down"
+            style="font-size: 30px; color: black; 
+            margin-right: 90px; margin-left: 20px; 
+            cursor: pointer;"
+            ></i>
+          </a>
+       
+        </div>
+        
+        {% endif %}
+
+
+
+
+    <a href="">
+      <i style="font-size: 30px; color: black; margin-right: 90px; cursor: pointer;" class="fa-regular fa-comment"></i>
+     
+    </a>
+        
+        <span style=" color: black; display: flex; flex-direction: column; justify-content: space-between;"> 
+            
+          {% post_to_facebook "SeraNetwork: Check it out!" object_or_url "Facebook" %}
+          {% post_to_telegram "SeraNetwork: Check it out!" object_or_url "Telegram"  %}
+          {% post_to_twitter "SeraNetwork:  Check it out!" object_or_url "Twitter" %}
+       
+      </span>
+  
+
+        
+
+    </div>
+   
+    {% if favorited is True %}
+    
+      <span style="margin-left: 5px;"> <a style="color: red;" class="post__name--underline" href="#">Cancel</a> <a href="#"></a></span>
+ 
+    
+    {% else %}
+    
+    <span style="margin-left: 15px;"> <a style="color: black;" class="post__name--underline" href="#">Save</a> <a href="#"></a></span>
+ 
+    
+    {% endif %}
+    
+    <span style="margin-left: 55px; color: black;">{{ commentNo }} <a style="color: black;" class="post__name--underline" href="#">comments</a> <a href="#"></a></span>
+
+    <span style="margin-left: 45px; color: black;"> <a style="color: black;" class="post__name--underline" href="#">Share</a> <a href="#"></a></span>
+
+
+      </div>
+      <div class="card-content">
+        <article class="media">
+  
+          <p class="image is-64x64">
+            {% if request.user.profile.picture %}
+            <a >
+              <img style="width: 40px; height: 40px; border-radius: 50px;"  src="{{ request.user.profile.picture.url }}" alt="Placeholder image">
+            </a>
+              
+            {% else %}
+            <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+           
+              
+            {% endif %}
+          </p>
+      
+          <form method="post" action="" role="form">
+            {% csrf_token %}
+            <div style="color: white" class="form__group ">
+              <label for="room_name">Add your comment here</label>
+              {{ form.body }}
+            </div>
+    
+      
+            
+            <button style="background-color: rgb(0, 157, 255); 
+            font-size: 15px; margin-bottom: 10px; color: black;" 
+            type="submit" class="btn btn--main"
+            name="action"
+            onclick="this.classList.toggle('button--loading')"
+            href="">
+              
+              Post
+            </button>
+          </form>
+         
+    
+        </article>
+        
+  
+       
+       
+  
+        {% for comment in comments %}
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              {% if comment.user.profile.picture %}
+              <a  href="{% url 'profile' comment.user %}" >
+                <img style="width: 40px; height: 40px; border-radius: 50px;"  src="{{ comment.user.profile.picture.url }}" alt="Placeholder image">
+              </a>
+
+              
+              {% else %}
+              <a  href="{% url 'profile' comment.user %}">
+                <img style="width: 40px; height: 40px; border-radius: 20px;" src="{% static '\images\default_profile.png' %}" />
+             
+              </a>
+             
+                
+              {% endif %}
+            </p>
+          </figure>
+        
+          <div class="media-content">
+            <div class="content">
+              <p>
+                {% if comment.user.profile.first_name %}
+                  <strong style="color: white">{{ comment.user.profile.first_name }}</strong>
+                {% else %}
+        
+                    <a style="color: rgb(0, 157, 255)"> @{{ comment.user.username }}</a>
+              
+                {% endif %}
+                <br style="color: white">
+                  {{ comment.body }}
+                <br>
+                <strong style="color: white;"><small>{{ comment.date|naturaltime }}</small></strong>
+              </p>
+            </div>
+        
+        </article>
+        {% endfor %}
+        
+        
+          
+          </div>
+  </div>
+    
+    <br>
+   
+      </article>
+      <div>
+
+      </div class="topics">
+      </div>
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="topics">
+ 
+</div>
+
+
+
+    </div>
+    
+
+
+
+    
+  
+  
+  
+  
+  
+  </div>
+</main>
+
+  
+
+
+
+
+{% endblock %}
+
+
+
+
+
